@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"/>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script>
+        $(document).ready(function () {
+            showMusic();
+        });
+
+        function showMusic() {
+            $.ajax({
+                type: 'GET',
+                url: '/musics',
+                data: {},
+                success: function (response) {
+                    let musics = response['musics']
+                    for (let i = 0; i < musics.length; i++) {
+                        let Genre = musics[i]['Genre']
+                        let albumImageUrl = musics[i]['albumImageUrl']
+                        let like = musics[i]['like']
+                        let rank = musics[i]['rank']
+                        let singer = musics[i]['singer']
+                        let title = musics[i]['title']
+                        let year = musics[i]['year']
+    
+                        let temp_html = `<p>${Genre}</p>
+                                        <img src="${albumImageUrl}" alt="">
+                                        <p>${like}</p>
+                                        <p>${rank}</p>
+                                        <p>${singer}</p>
+                                        <p>${title}</p>
+                                        <p>${year}</p>`
+                        $('#MusicList').append(temp_html)
+                }
+            }
+            });
+        }
+    </script>
+</head>
+<body>
+<div id = "MusicList">
+</div>
+
+</body>
+</html>
